@@ -1,12 +1,13 @@
 import React from 'react';
-import Provider from 'react-redux';
 import './App.css';
+import ProviderIni from './context/providerIni';
+import Table from './components/Table';
 
 function App() {
   return (
-    <Provider>
-      <span>Hello, App!</span>
-    </Provider>
+    <ProviderIni>
+      <Table />
+    </ProviderIni>
   );
 }
 
