@@ -2,7 +2,8 @@ import React, { useContext, useEffect } from 'react';
 import InitialContext from '../context/contextIn';
 
 function Table() {
-  const { apiReturn, planets: { results } } = useContext(InitialContext);
+  const { apiReturn,
+    planets: { results }, filterByName: { name } } = useContext(InitialContext);
 
   useEffect(() => {
     apiReturn();
@@ -12,7 +13,7 @@ function Table() {
     // console.log(results);
   }, [results]);
 
-  // console.log(state);
+  console.log(name);
   return (
     <table>
       <tr>
@@ -56,7 +57,8 @@ function Table() {
           URL
         </th>
       </tr>
-      { results === undefined ? undefined : results.map((result) => (
+      { results === undefined ? undefined : results.filter((filterName) => (
+        filterName.name.includes(name))).map((result) => (
         <tr key={ result.created }>
           <td>
             { result.name }

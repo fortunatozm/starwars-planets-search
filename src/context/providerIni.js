@@ -4,15 +4,26 @@ import InitialContext from './contextIn';
 import funcAPI from '../apiService/apiPlanets';
 
 function ProviderIni({ children }) {
-  const [planets, setPlanets] = useState('Fortunato');
+  const [planets, setPlanets] = useState({});
+
+  const [filterByName, setfilterByName] = useState({
+    name: '',
+  });
 
   async function apiReturn() {
     const result = await funcAPI();
-    // console.log(children);
     setPlanets(result);
   }
+
+  const values = {
+    planets,
+    apiReturn,
+    filterByName,
+    setfilterByName,
+  };
+
   return (
-    <InitialContext.Provider value={ { planets, apiReturn } }>
+    <InitialContext.Provider value={ values }>
       { children }
     </InitialContext.Provider>
   );
