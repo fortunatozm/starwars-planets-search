@@ -2,9 +2,8 @@ import React, { useContext } from 'react';
 import InitialContext from '../context/contextIn';
 
 function Search() {
-  const { name, setfilterByName, filterByName } = useContext(InitialContext);
+  const { name, setfilterByName } = useContext(InitialContext);
 
-  console.log(filterByName.name);
   return (
     <header>
       <h1>

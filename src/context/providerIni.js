@@ -10,6 +10,16 @@ function ProviderIni({ children }) {
     name: '',
   });
 
+  const [checkRender, setCheckRender] = useState(true);
+
+  const [newResults, setNewResults] = useState([]);
+
+  const [filterByNumericValues, setFilterByNumericValues] = useState({
+    column: 'population',
+    comparison: 'maior que',
+    value: 0,
+  });
+
   async function apiReturn() {
     const result = await funcAPI();
     setPlanets(result);
@@ -17,9 +27,16 @@ function ProviderIni({ children }) {
 
   const values = {
     planets,
+    setPlanets,
     apiReturn,
     filterByName,
     setfilterByName,
+    filterByNumericValues,
+    setFilterByNumericValues,
+    checkRender,
+    setCheckRender,
+    newResults,
+    setNewResults,
   };
 
   return (

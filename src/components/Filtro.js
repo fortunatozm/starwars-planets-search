@@ -1,18 +1,42 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import InitialContext from '../context/contextIn';
 
 function Filtro() {
-  // const [filter, setFilter] = useState({
-  //   filterByNumericValues: {
-  //     column: 'population',
-  //     comparison: 'maior que',
-  //     value: '100000',
-  //   },
-  // });
+  const { filterByNumericValues: { column, comparison, value },
+    setFilterByNumericValues,
+    planets,
+    setCheckRender,
+    setNewResults } = useContext(InitialContext);
+
+  const hendleFilter = () => {
+    setCheckRender(false);
+    if (comparison === 'maior que') {
+      setNewResults(planets.results.filter((planet) => (
+        Number(planet[column]) > Number(value))));
+    } else if (comparison === 'menor que') {
+      setNewResults(planets.results.filter((planet) => (
+        Number(planet[column]) < Number(value))));
+    } else if (comparison === 'igual a') {
+      console.log(typeof (value));
+      console.log(value);
+      setNewResults(planets.results.filter((planet) => (
+        Number(planet[column]) === Number(value))));
+    }
+  };
+
   return (
     <section>
       <label htmlFor="filtro">
         Coluna
-        <select id="filtro" data-testid="column-filter">
+        <select
+          id="filtro"
+          onChange={ ({ target }) => {
+            setFilterByNumericValues((prevState) => (
+              { ...prevState, column: target.value }));
+          } }
+          data-testid="column-filter"
+          value={ column }
+        >
           <option>
             population
           </option>
@@ -32,7 +56,15 @@ function Filtro() {
       </label>
       <label htmlFor="comparison">
         Operador
-        <select id="comparison" data-testid="comparison-filter">
+        <select
+          id="comparison"
+          data-testid="comparison-filter"
+          value={ comparison }
+          onChange={ ({ target }) => {
+            setFilterByNumericValues((prevState) => (
+              { ...prevState, comparison: target.value }));
+          } }
+        >
           <option>
             maior que
           </option>
@@ -45,9 +77,18 @@ function Filtro() {
         </select>
       </label>
       <label htmlFor="number">
-        <input data-testid="value-filter" id="number" type="number" />
+        <input
+          data-testid="value-filter"
+          id="number"
+          type="number"
+          value={ value }
+          onChange={ ({ target }) => {
+            setFilterByNumericValues((prevState) => (
+              { ...prevState, value: target.value }));
+          } }
+        />
       </label>
-      <button data-testid="button-filter" type="button">
+      <button data-testid="button-filter" type="button" onClick={ hendleFilter }>
         FILTRAR
       </button>
       <label htmlFor="ordenar">

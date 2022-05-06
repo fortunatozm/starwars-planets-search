@@ -3,17 +3,109 @@ import InitialContext from '../context/contextIn';
 
 function Table() {
   const { apiReturn,
-    planets: { results }, filterByName: { name } } = useContext(InitialContext);
+    planets: { results },
+    filterByName: { name },
+    newResults, checkRender } = useContext(InitialContext);
 
   useEffect(() => {
     apiReturn();
   });
 
-  useEffect(() => {
-    // console.log(results);
-  }, [results]);
+  const renderTable = () => {
+    if (checkRender) {
+      return results === undefined ? undefined : results.filter((filterName) => (
+        (filterName.name.toUpperCase()).includes(name.toUpperCase()))).map((result) => (
+        <tr key={ result.created }>
+          <td>
+            { result.name }
+          </td>
+          <td>
+            { result.rotation_period }
+          </td>
+          <td>
+            { result.orbital_period }
+          </td>
+          <td>
+            { result.diameter }
+          </td>
+          <td>
+            { result.climate }
+          </td>
+          <td>
+            { result.gravity }
+          </td>
+          <td>
+            { result.terrain }
+          </td>
+          <td>
+            { result.surface_water }
+          </td>
+          <td>
+            { result.population }
+          </td>
+          <td>
+            { result.films.map((film) => film) }
+          </td>
+          <td>
+            { result.created }
+          </td>
+          <td>
+            { result.edited }
+          </td>
+          <td>
+            { result.url }
+          </td>
+        </tr>
+      ));
+    }
+    return newResults === undefined ? undefined : newResults.filter((filterName) => (
+      (filterName.name.toUpperCase()).includes(name.toUpperCase()))).map((result) => (
+      <tr key={ result.created }>
+        <td>
+          { result.name }
+        </td>
+        <td>
+          { result.rotation_period }
+        </td>
+        <td>
+          { result.orbital_period }
+        </td>
+        <td>
+          { result.diameter }
+        </td>
+        <td>
+          { result.climate }
+        </td>
+        <td>
+          { result.gravity }
+        </td>
+        <td>
+          { result.terrain }
+        </td>
+        <td>
+          { result.surface_water }
+        </td>
+        <td>
+          { result.population }
+        </td>
+        <td>
+          { result.films.map((film) => film) }
+        </td>
+        <td>
+          { result.created }
+        </td>
+        <td>
+          { result.edited }
+        </td>
+        <td>
+          { result.url }
+        </td>
+      </tr>
+    ));
+  };
 
-  console.log(name);
+  console.log(results);
+  console.log(newResults);
   return (
     <table>
       <tr>
@@ -57,50 +149,7 @@ function Table() {
           URL
         </th>
       </tr>
-      { results === undefined ? undefined : results.filter((filterName) => (
-        filterName.name.includes(name))).map((result) => (
-        <tr key={ result.created }>
-          <td>
-            { result.name }
-          </td>
-          <td>
-            { result.rotation_period }
-          </td>
-          <td>
-            { result.orbital_period }
-          </td>
-          <td>
-            { result.diameter }
-          </td>
-          <td>
-            { result.climate }
-          </td>
-          <td>
-            { result.gravity }
-          </td>
-          <td>
-            { result.terrain }
-          </td>
-          <td>
-            { result.surface_water }
-          </td>
-          <td>
-            { result.population }
-          </td>
-          <td>
-            { result.films.map((film) => film) }
-          </td>
-          <td>
-            { result.created }
-          </td>
-          <td>
-            { result.edited }
-          </td>
-          <td>
-            { result.url }
-          </td>
-        </tr>
-      ))}
+      { renderTable() }
     </table>
   );
 }
