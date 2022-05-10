@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import InitialContext from './contextIn';
-import funcAPI from '../apiService/apiPlanets';
+// import funcAPI from '../apiService/apiPlanets';
 
 function ProviderIni({ children }) {
-  const [planets, setPlanets] = useState({});
+  const [planets, setPlanets] = useState([]);
 
   const [filterByName, setfilterByName] = useState({
     name: '',
@@ -20,15 +20,21 @@ function ProviderIni({ children }) {
     value: 0,
   });
 
-  async function apiReturn() {
-    const result = await funcAPI();
-    setPlanets(result);
-  }
+  // async function apiReturn() {
+  //   const result = await funcAPI();
+  //   setPlanets(result);
+  // }
+
+  // function copia() {
+  //   const dados = [...planets];
+  //   // setNewResults(dados);
+  //   // return dados;
+  // }
 
   const values = {
     planets,
     setPlanets,
-    apiReturn,
+    // apiReturn,
     filterByName,
     setfilterByName,
     filterByNumericValues,
@@ -37,6 +43,7 @@ function ProviderIni({ children }) {
     setCheckRender,
     newResults,
     setNewResults,
+    // copia,
   };
 
   return (

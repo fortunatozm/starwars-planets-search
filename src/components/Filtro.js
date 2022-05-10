@@ -4,22 +4,20 @@ import InitialContext from '../context/contextIn';
 function Filtro() {
   const { filterByNumericValues: { column, comparison, value },
     setFilterByNumericValues,
-    planets,
+    newResults,
     setCheckRender,
     setNewResults } = useContext(InitialContext);
 
   const hendleFilter = () => {
     setCheckRender(false);
     if (comparison === 'maior que') {
-      setNewResults(planets.results.filter((planet) => (
+      setNewResults(newResults.filter((planet) => (
         Number(planet[column]) > Number(value))));
     } else if (comparison === 'menor que') {
-      setNewResults(planets.results.filter((planet) => (
+      setNewResults(newResults.filter((planet) => (
         Number(planet[column]) < Number(value))));
     } else if (comparison === 'igual a') {
-      console.log(typeof (value));
-      console.log(value);
-      setNewResults(planets.results.filter((planet) => (
+      setNewResults(newResults.filter((planet) => (
         Number(planet[column]) === Number(value))));
     }
   };

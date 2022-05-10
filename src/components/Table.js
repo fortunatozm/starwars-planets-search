@@ -1,20 +1,33 @@
 import React, { useContext, useEffect } from 'react';
 import InitialContext from '../context/contextIn';
+import funcAPI from '../apiService/apiPlanets';
 
 function Table() {
-  const { apiReturn,
-    planets: { results },
-    filterByName: { name },
+  const {
+    planets: { results }, setPlanets,
+    filterByName: { name }, setNewResults,
     newResults, checkRender } = useContext(InitialContext);
 
   useEffect(() => {
+    const apiReturn = async () => {
+      const result = await funcAPI();
+      setPlanets(result);
+      setNewResults([...result]);
+    };
     apiReturn();
-  });
+  }, []);
 
+  // if (results !== null && results !== undefined) {
+  //   // const data = [...results];
+  //   setNewResults(data);
+  //   console.log('Entrouuuuu', data);
+  // }
+
+  // console.log(results);
   const renderTable = () => {
     if (checkRender) {
       return (
-        results === undefined ? undefined : results.filter((filterName) => (
+        newResults === undefined ? undefined : newResults.filter((filterName) => (
           (filterName.name.toUpperCase()).includes(name.toUpperCase())
         )).map((result) => (
           <tr key={ result.created }>
