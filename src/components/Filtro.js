@@ -4,20 +4,20 @@ import InitialContext from '../context/contextIn';
 function Filtro() {
   const { filterByNumericValues: { column, comparison, value },
     setFilterByNumericValues,
-    newResults,
-    setCheckRender,
-    setNewResults } = useContext(InitialContext);
+    planets, setPlanets,
+    setCheckRender } = useContext(InitialContext);
 
   const hendleFilter = () => {
     setCheckRender(false);
+    console.log(column, comparison, value);
     if (comparison === 'maior que') {
-      setNewResults(newResults.filter((planet) => (
+      setPlanets(planets.filter((planet) => (
         Number(planet[column]) > Number(value))));
     } else if (comparison === 'menor que') {
-      setNewResults(newResults.filter((planet) => (
+      setPlanets(planets.filter((planet) => (
         Number(planet[column]) < Number(value))));
     } else if (comparison === 'igual a') {
-      setNewResults(newResults.filter((planet) => (
+      setPlanets(planets.filter((planet) => (
         Number(planet[column]) === Number(value))));
     }
   };
@@ -86,7 +86,7 @@ function Filtro() {
           } }
         />
       </label>
-      <button data-testid="button-filter" type="button" onClick={ hendleFilter }>
+      <button data-testid="button-filter" name="button" type="button" onClick={ hendleFilter }>
         FILTRAR
       </button>
       <label htmlFor="ordenar">
