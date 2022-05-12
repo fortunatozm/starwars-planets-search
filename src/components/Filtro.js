@@ -1,15 +1,23 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import InitialContext from '../context/contextIn';
 
 function Filtro() {
-  const { filterByNumericValues: { column, comparison, value },
-    setFilterByNumericValues,
+  // filterByNumericValues: { column, comparison, value },
+  const {
     planets, setPlanets,
-    setCheckRender } = useContext(InitialContext);
+    setCheckRender, setFilterByNumericValues,
+    filterByNumericValues } = useContext(InitialContext);
+
+  const [filterLocal, setFilterLocal] = useState({
+    column: 'population',
+    comparison: 'maior que',
+    value: 0,
+  });
 
   const hendleFilter = () => {
     setCheckRender(false);
-    console.log(column, comparison, value);
+    setFilterByNumericValues([...filterByNumericValues, filterLocal]);
+    const { column, comparison, value } = filterLocal;
     if (comparison === 'maior que') {
       setPlanets(planets.filter((planet) => (
         Number(planet[column]) > Number(value))));
@@ -29,11 +37,11 @@ function Filtro() {
         <select
           id="filtro"
           onChange={ ({ target }) => {
-            setFilterByNumericValues((prevState) => (
+            setFilterLocal((prevState) => (
               { ...prevState, column: target.value }));
           } }
           data-testid="column-filter"
-          value={ column }
+          value={ filterLocal.column }
         >
           <option>
             population
@@ -57,9 +65,9 @@ function Filtro() {
         <select
           id="comparison"
           data-testid="comparison-filter"
-          value={ comparison }
+          value={ filterLocal.comparison }
           onChange={ ({ target }) => {
-            setFilterByNumericValues((prevState) => (
+            setFilterLocal((prevState) => (
               { ...prevState, comparison: target.value }));
           } }
         >
@@ -79,14 +87,19 @@ function Filtro() {
           data-testid="value-filter"
           id="number"
           type="number"
-          value={ value }
+          value={ filterLocal.value }
           onChange={ ({ target }) => {
-            setFilterByNumericValues((prevState) => (
+            setFilterLocal((prevState) => (
               { ...prevState, value: target.value }));
           } }
         />
       </label>
-      <button data-testid="button-filter" name="button" type="button" onClick={ hendleFilter }>
+      <button
+        data-testid="button-filter"
+        name="button"
+        type="button"
+        onClick={ hendleFilter }
+      >
         FILTRAR
       </button>
       <label htmlFor="ordenar">
