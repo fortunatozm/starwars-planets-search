@@ -53,11 +53,12 @@ function Filtro() {
           data-testid="column-filter"
           value={ filterLocal.column }
         >
-          { colunaOptions.length === 0 ? undefined : colunaOptions.map((coluna, index) => (
-            <option key={ index }>
-              { coluna }
-            </option>
-          )) }
+          { colunaOptions.length === 0 ? undefined
+            : colunaOptions.map((coluna, index) => (
+              <option key={ index }>
+                { coluna }
+              </option>
+            )) }
           {/* <option>
             population
           </option>
