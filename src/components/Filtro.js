@@ -2,7 +2,6 @@ import React, { useContext, useState } from 'react';
 import InitialContext from '../context/contextIn';
 
 function Filtro() {
-  // filterByNumericValues: { column, comparison, value },
   const {
     planets, setPlanets,
     setCheckRender, setFilterByNumericValues,
@@ -14,10 +13,20 @@ function Filtro() {
     value: 0,
   });
 
+  const [colunaOptions, setColunaOptions] = useState(
+    ['population', 'orbital_period', 'diameter', 'rotation_period', 'surface_water'],
+  );
+
   const hendleFilter = () => {
     setCheckRender(false);
-    setFilterByNumericValues([...filterByNumericValues, filterLocal]);
     const { column, comparison, value } = filterLocal;
+
+    if (colunaOptions.includes(column)) {
+      setColunaOptions(colunaOptions.filter((coluna) => coluna !== column));
+    } else {
+      setColunaOptions(colunaOptions);
+    }
+    setFilterByNumericValues([...filterByNumericValues, filterLocal]);
     if (comparison === 'maior que') {
       setPlanets(planets.filter((planet) => (
         Number(planet[column]) > Number(value))));
@@ -44,7 +53,12 @@ function Filtro() {
           data-testid="column-filter"
           value={ filterLocal.column }
         >
-          <option>
+          { colunaOptions.length === 0 ? undefined : colunaOptions.map((coluna, index) => (
+            <option key={ index }>
+              { coluna }
+            </option>
+          )) }
+          {/* <option>
             population
           </option>
           <option>
@@ -58,7 +72,7 @@ function Filtro() {
           </option>
           <option>
             surface_water
-          </option>
+          </option> */}
         </select>
       </label>
       <label htmlFor="comparison">
