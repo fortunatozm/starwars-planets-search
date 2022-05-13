@@ -37,8 +37,9 @@ function Filtro() {
         <select
           id="filtro"
           onChange={ ({ target }) => {
+            const valor = target.value;
             setFilterLocal((prevState) => (
-              { ...prevState, column: target.value }));
+              { ...prevState, column: valor }));
           } }
           data-testid="column-filter"
           value={ filterLocal.column }
@@ -67,8 +68,9 @@ function Filtro() {
           data-testid="comparison-filter"
           value={ filterLocal.comparison }
           onChange={ ({ target }) => {
+            const valor = target.value;
             setFilterLocal((prevState) => (
-              { ...prevState, comparison: target.value }));
+              { ...prevState, comparison: valor }));
           } }
         >
           <option>
@@ -89,8 +91,9 @@ function Filtro() {
           type="number"
           value={ filterLocal.value }
           onChange={ ({ target }) => {
+            const valor = target.value;
             setFilterLocal((prevState) => (
-              { ...prevState, value: target.value }));
+              { ...prevState, value: valor }));
           } }
         />
       </label>
