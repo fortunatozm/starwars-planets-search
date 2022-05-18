@@ -5,6 +5,8 @@ import InitialContext from './contextIn';
 function ProviderIni({ children }) {
   const [planets, setPlanets] = useState([]);
 
+  const [originalPlanets, originalSetPlanets] = useState([]);
+
   const [filterByNumericValues, setFilterByNumericValues] = useState([]);
 
   const [filterByName, setfilterByName] = useState({
@@ -22,6 +24,8 @@ function ProviderIni({ children }) {
     setFilterByNumericValues,
     checkRender,
     setCheckRender,
+    originalPlanets,
+    originalSetPlanets,
   };
 
   return (

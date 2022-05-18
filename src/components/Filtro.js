@@ -5,7 +5,11 @@ function Filtro() {
   const {
     planets, setPlanets,
     setCheckRender, setFilterByNumericValues,
-    filterByNumericValues } = useContext(InitialContext);
+    filterByNumericValues, originalPlanets } = useContext(InitialContext);
+
+  const [colunaOptions, setColunaOptions] = useState(
+    ['population', 'orbital_period', 'diameter', 'rotation_period', 'surface_water'],
+  );
 
   const [filterLocal, setFilterLocal] = useState({
     column: 'population',
@@ -13,9 +17,10 @@ function Filtro() {
     value: 0,
   });
 
-  const [colunaOptions, setColunaOptions] = useState(
-    ['population', 'orbital_period', 'diameter', 'rotation_period', 'surface_water'],
-  );
+  const removeAllFilters = () => {
+    setFilterByNumericValues([]);
+    setPlanets(originalPlanets);
+  };
 
   const hendleFilter = () => {
     setCheckRender(false);
@@ -59,21 +64,6 @@ function Filtro() {
                 { coluna }
               </option>
             )) }
-          {/* <option>
-            population
-          </option>
-          <option>
-            orbital_period
-          </option>
-          <option>
-            diameter
-          </option>
-          <option>
-            rotation_period
-          </option>
-          <option>
-            surface_water
-          </option> */}
         </select>
       </label>
       <label htmlFor="comparison">
@@ -136,6 +126,16 @@ function Filtro() {
         <input name="classificacao" id="descendente" type="radio" />
         Descendente
       </label>
+      <button type="button">
+        ORDENAR
+      </button>
+      <button
+        type="button"
+        data-testid="button-remove-filters"
+        onClick={ removeAllFilters }
+      >
+        REMOVER FILTROS
+      </button>
     </section>
   );
 }

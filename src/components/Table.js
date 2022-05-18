@@ -6,12 +6,13 @@ function Table() {
   const {
     planets, setPlanets,
     filterByName: { name },
-    checkRender } = useContext(InitialContext);
+    checkRender, originalSetPlanets } = useContext(InitialContext);
 
   useEffect(() => {
     const apiReturn = async () => {
       const result = await funcAPI();
       setPlanets([...result.results]);
+      originalSetPlanets([...result.results]);
     };
     apiReturn();
   }, []);
