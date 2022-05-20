@@ -15,6 +15,11 @@ function ProviderIni({ children }) {
 
   const [checkRender, setCheckRender] = useState(true);
 
+  const [order, setOrder] = useState({
+    column: 'population',
+    sort: 'ASC',
+  });
+
   const values = {
     planets,
     setPlanets,
@@ -26,6 +31,8 @@ function ProviderIni({ children }) {
     setCheckRender,
     originalPlanets,
     originalSetPlanets,
+    order,
+    setOrder,
   };
 
   return (

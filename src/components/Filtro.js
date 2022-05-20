@@ -3,7 +3,7 @@ import InitialContext from '../context/contextIn';
 
 function Filtro() {
   const {
-    planets, setPlanets,
+    setPlanets,
     setCheckRender, setFilterByNumericValues,
     filterByNumericValues, originalPlanets } = useContext(InitialContext);
 
@@ -24,7 +24,7 @@ function Filtro() {
 
   const hendleFilter = () => {
     setCheckRender(false);
-    const { column, comparison, value } = filterLocal;
+    const { column } = filterLocal;
 
     if (colunaOptions.includes(column)) {
       setColunaOptions(colunaOptions.filter((coluna) => coluna !== column));
@@ -32,16 +32,16 @@ function Filtro() {
       setColunaOptions(colunaOptions);
     }
     setFilterByNumericValues([...filterByNumericValues, filterLocal]);
-    if (comparison === 'maior que') {
-      setPlanets(planets.filter((planet) => (
-        Number(planet[column]) > Number(value))));
-    } else if (comparison === 'menor que') {
-      setPlanets(planets.filter((planet) => (
-        Number(planet[column]) < Number(value))));
-    } else if (comparison === 'igual a') {
-      setPlanets(planets.filter((planet) => (
-        Number(planet[column]) === Number(value))));
-    }
+    // if (comparison === 'maior que') {
+    //   setPlanets(planets.filter((planet) => (
+    //     Number(planet[column]) > Number(value))));
+    // } else if (comparison === 'menor que') {
+    //   setPlanets(planets.filter((planet) => (
+    //     Number(planet[column]) < Number(value))));
+    // } else if (comparison === 'igual a') {
+    //   setPlanets(planets.filter((planet) => (
+    //     Number(planet[column]) === Number(value))));
+    // }
   };
 
   return (
