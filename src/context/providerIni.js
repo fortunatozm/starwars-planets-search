@@ -16,7 +16,7 @@ function ProviderIni({ children }) {
   const [checkRender, setCheckRender] = useState(true);
 
   const [order, setOrder] = useState({
-    column: 'population',
+    column: 'name',
     sort: 'ASC',
   });
 

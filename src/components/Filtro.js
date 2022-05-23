@@ -3,13 +3,18 @@ import InitialContext from '../context/contextIn';
 
 function Filtro() {
   const {
-    setPlanets,
+    setPlanets, setOrder,
     setCheckRender, setFilterByNumericValues,
     filterByNumericValues, originalPlanets } = useContext(InitialContext);
 
   const [colunaOptions, setColunaOptions] = useState(
     ['population', 'orbital_period', 'diameter', 'rotation_period', 'surface_water'],
   );
+
+  const [localOrder, setLocalOrder] = useState({
+    column: 'population',
+    sort: 'ASC',
+  });
 
   const [filterLocal, setFilterLocal] = useState({
     column: 'population',
@@ -42,6 +47,17 @@ function Filtro() {
     //   setPlanets(planets.filter((planet) => (
     //     Number(planet[column]) === Number(value))));
     // }
+  };
+
+  const funcOrder = () => {
+    // console.log(localOrder);
+    setOrder(localOrder);
+  };
+
+  const saveOrder = ({ target }) => {
+    const valor = target.value;
+    setLocalOrder({ ...localOrder, sort: valor });
+    // console.log(localOrder);
   };
 
   return (
@@ -112,21 +128,59 @@ function Filtro() {
       </button>
       <label htmlFor="ordenar">
         Ordenar
-        <select id="ordenar">
+        <select
+          id="ordenar"
+          data-testid="column-sort"
+          onChange={ ({ target }) => {
+            const valor = target.value;
+            setLocalOrder((prevState) => (
+              { ...prevState, column: valor }));
+          } }
+        >
           <option>
             population
+          </option>
+          <option>
+            orbital_period
+          </option>
+          <option>
+            diameter
+          </option>
+          <option>
+            rotation_period
+          </option>
+          <option>
+            surface_water
           </option>
         </select>
       </label>
       <label htmlFor="ascendente">
-        <input name="classificacao" id="ascendente" type="radio" />
+        <input
+          value="ASC"
+          name="classificacao"
+          id="ascendente"
+          type="radio"
+          data-testid="column-sort-input-asc"
+          onChange={ saveOrder }
+        />
         Ascendente
       </label>
       <label htmlFor="descendente">
-        <input name="classificacao" id="descendente" type="radio" />
+        <input
+          value="DESC"
+          name="classificacao"
+          id="descendente"
+          type="radio"
+          data-testid="column-sort-input-desc"
+          onChange={ saveOrder }
+        />
         Descendente
       </label>
-      <button type="button">
+      <button
+        type="button"
+        data-testid="column-sort-button"
+        onClick={ funcOrder }
+      >
         ORDENAR
       </button>
       <button
